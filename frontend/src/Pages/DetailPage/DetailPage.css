@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    margin-top: 2rem;
+    margin-right: 1rem;
+}
+.images {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    flex: 1;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details h1 {
+    margin-top: 0;
+}
+.details p {
+    line-height: 1.5;
+}
+.sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+.sizes div {
+    flex: 1 1 33%;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sizes div:hover {
+    background-color: #f4f4f4;
+}
+
+.sizes .stock {
+    font-size: 0.8em;
+    color: red;
+    margin-left: 10px;
+}
