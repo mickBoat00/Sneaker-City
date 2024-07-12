@@ -1,7 +1,7 @@
 import "./Nav.css";
 import React from 'react'
-import { FiHeart } from "react-icons/fi";
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from "react-icons/ai";
+import { Link } from 'react-router-dom'
 
 const Nav = () => {
   return (
@@ -24,9 +24,10 @@ const Nav = () => {
         {/* <a href="#">
           <FiHeart className="nav-icons" />
         </a> */}
-        <a href="">
+
+        <Link to="/cart">
           <AiOutlineShoppingCart className="nav-icons" />
-        </a>
+        </Link>
       </div>
     </nav>
   )

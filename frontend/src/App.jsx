@@ -5,14 +5,20 @@ import DetailPage from './Pages/DetailPage/DetailPage'
 
 import HomePage from './Pages/HomePage/HomePage'
 
+import {Routes, Route} from 'react-router-dom'
+
 function App() {
 
   return (
     <>
       <Nav/>
-      <HomePage/>
-      <DetailPage/>
-      <CartPage/>
+
+      <Routes>
+        <Route path='/' element={ <HomePage/>}></Route>
+        <Route path='/:id' element={<DetailPage/>}></Route>
+        <Route path='/cart' element={<CartPage/>}></Route>
+      </Routes>
+
     </>
   )
 }

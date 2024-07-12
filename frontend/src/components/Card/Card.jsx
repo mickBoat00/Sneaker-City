@@ -1,9 +1,12 @@
 import React from 'react'
-import { BsFillBagFill } from "react-icons/bs";
+import { FiHeart } from "react-icons/fi";
+import { Link } from 'react-router-dom'
+import './Card.css'
 
 const Card = ({ img, brand, model, star, reviews, price, releaseDate }) => {
   return (
     <>
+      <Link className='link' to="/1">
       <section className="card">
         <img src={img} alt={model} className="card-img" />
         <div className="card-details">
@@ -20,11 +23,12 @@ const Card = ({ img, brand, model, star, reviews, price, releaseDate }) => {
               Gh {price}
             </div>
             <div className="bag">
-              <BsFillBagFill className="bag-icon" />
+              <FiHeart className="heart-icon" />
             </div>
           </section>
         </div>
       </section>
+      </Link>
     </>
   )
 }
