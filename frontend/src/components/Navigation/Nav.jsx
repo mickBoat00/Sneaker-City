@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom'
 const Nav = () => {
   return (
     <nav>
-      <div className="profile-container">
-        <a href="">
-          <AiOutlineUserAdd className="nav-icons" />
-        </a>
-      </div>
+      <Link className="logo" to="/">
+
+      <h3>Sneaker City</h3>
+      
+      </Link>
+      
+
       <div className="nav-container">
         <input
           className="search-input"

@@ -18,6 +18,11 @@ nav {
     position: relative;
     width: 14rem;
   }
+
+  .logo {
+    text-decoration: none;
+    color: black;
+  }
   
   .nav-icons {
     width: 1.5rem;
