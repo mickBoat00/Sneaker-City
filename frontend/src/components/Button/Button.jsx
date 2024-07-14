@@ -1,8 +1,9 @@
 import React from 'react'
+import './Button.css'
 
-const Button = ({onClickHandler, value, title}) => {
+const Button = ({selectedSize, onClickHandler, value, title, className}) => {
   return (
-    <button onClick={onClickHandler} value={value} className="btns">
+    <button disabled={selectedSize === null } onClick={onClickHandler} value={value} className={`btns ${className}`} >
       {title}
     </button>
   );

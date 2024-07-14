@@ -1,32 +1,97 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DetailPage.css'
 import Button from '../../components/Button/Button'
+import { useParams } from 'react-router-dom'
+import Counter from '../../components/Counter/Counter'
 
-const DetailPage = () => {
-    function handleClick(){
+const DetailPage = ({updateCart}) => {
 
+  const { id } = useParams()
+
+  const [sneaker, setSneaker] = useState({});
+  const [quantity, setQuantity] = useState(0)
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [displayError, setDisplayError] = useState(false);
+
+
+  const handleSizeClick = size => {
+    setDisplayError(false)
+    setSelectedSize(size);
+    setQuantity(1);
+  };
+
+  useEffect(() => {
+    fetch(`/api/sneakers/${id}/`)
+      .then(response =>  response.json())
+      .then(data =>setSneaker(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  const incrementQuantity = () => {
+    setQuantity(prevQuantity => (prevQuantity === selectedSize.quantityLeft ? prevQuantity :  prevQuantity + 1));
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  const addToCart = () => {
+    // updating the cart
+
+    if (selectedSize == null) {
+      setDisplayError(true)
+      return
+    } 
+    const product = {
+      "sneaker": sneaker.id,
+      "selectedSize": selectedSize,
+      "quantity": quantity,
     }
-  return (
-    <div class="container">
-        <div class="images">
-            <img src="https://m.media-amazon.com/images/I/71oEKkghg-L._AC_UX575_.jpg" alt="Side View"/>
-        </div>
-        <div class="details">
-            
-            <h1>Air Jordan 13 - Dune Red</h1>
-            <h2>$200.00</h2>
-            <p>The Sneaker comes equipped with a fresh mix of colors and textures. Dimpled textile overlays pop against a crisp White synthetic leather upper, plus Terra Blush microfiber accents add depth. Crafted to the '98 specs as designed by Tinker Hatfield, it includes the original holographic green eye and a paw-inspired outsole to honor MJ's "Black Cat" alter ego.</p>
-            <p><b>Release Date:</b> 01/05/2024</p>
-            <div class="sizes">
-                <div>M 7 / W 8.5 <span class="stock">(5 left)</span></div>
-                <div>M 7.5 / W 9 <span class="stock">(3 left)</span></div>
-                <div>M 8 / W 9.5 <span class="stock">(4 left)</span></div>
-                <div>M 8.5 / W 10 <span class="stock">(2 left)</span></div>
-                <div>M 9 / W 10.5 <span class="stock">(1 left)</span></div>
-                <div>M 9.5 / W 11 <span class="stock">(6 left)</span></div>
 
-            </div>
-            <Button onClickHandler={handleClick} value="" title="Add to cart" />
+
+    updateCart(product)
+
+    setSelectedSize(null)
+    setQuantity(0)
+
+
+  };
+
+  return (
+    <div className="container">
+        <div className="images">
+            <img src={sneaker.img} alt="Side View"/>
+        </div>
+        <div className="details">
+            
+            <h1>{sneaker.brand} {sneaker.model}</h1>
+            <h2>Ghc {sneaker.price}</h2>
+            <p>{sneaker.description}</p>
+            <p><b>Release Date:</b> {sneaker.releaseDate}</p>
+            <div className="sizes">
+              {sneaker.sizesAvailable && sneaker.sizesAvailable.length > 0 ? (
+                sneaker.sizesAvailable.map( size => (
+                  <Button key={size.id}
+                    className={`sizes-btn ${selectedSize === size ? 'selected' : ''}`}
+                    onClickHandler={() => handleSizeClick(size)} 
+                    value="" 
+                    title={`${size.size} (${size.quantityLeft} left)`} 
+                  />
+                ))
+              ) : (
+                <p style={{color: "red"}}>No sizes available</p>
+              )}
+            </div> 
+            
+
+            {
+              sneaker.sizesAvailable && sneaker.sizesAvailable.length > 0  && 
+              <>
+                <Counter selectedSize={selectedSize} quantity={quantity} handleDecrement={decrementQuantity} handleIncrease={incrementQuantity} />
+                {displayError && <p style={{color: "red"}}>Please select a size.</p>}
+                <Button className={'addToCart'} onClickHandler={addToCart} value="" title="Add to cart" />
+              </>
+            }
         </div>
     </div>
   )
