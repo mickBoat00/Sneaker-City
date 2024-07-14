@@ -3,13 +3,10 @@ import Filters from '../../components/Filters/Filters'
 import Sneakers from '../../components/Sneakers/Sneakers'
 
 const HomePage = () => {
-    function handleClick() {
-    
-    }
   
   return (
     <div>
-      <Filters handleClick={handleClick}/>
+      <Filters/>
       <Sneakers />
     </div>
   )

@@ -2,3 +2,44 @@
     text-decoration: none;
     color: black;
 }
+
+  
+  .card {
+    margin: 25px;
+    border: 2px solid #ededed;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 15rem;
+    height: 16rem;
+  }
+  
+  .card-img {
+    width: 13rem;
+    height: 7rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-title {
+    margin-bottom: 1rem;
+  }
+  
+  .card-info {
+    margin-bottom: 1rem;
+    display: flex;
+  }
+  
+  .rating-star {
+    color: #d5ab55;
+  }
+  
+  .card-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .heart-icon {
+    color: #535353;
+  }
+  

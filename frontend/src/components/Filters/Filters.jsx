@@ -2,16 +2,14 @@ import React from 'react'
 import Button from '../Button/Button'
 import "./Filters.css";
 
-const Filters = ({handleClick}) => {
+const Filters = () => {
   return (
     <div>
-        <h2 className="recommended-title">Filter Sneakers</h2>
+        <h2 className="recommended-title">Filter</h2>
         <div className="recommended-flex">
-          <Button onClickHandler={handleClick} value="" title="All Sneakers" />
-          <Button onClickHandler={handleClick} value="Nike" title="Nike" />
-          <Button onClickHandler={handleClick} value="Adidas" title="Adidas" />
-          <Button onClickHandler={handleClick} value="Puma" title="Puma" />
-          <Button onClickHandler={handleClick} value="Vans" title="Vans" />
+          <Button value="" title="Latest " />
+          <Button value="Nike" title="In coming" />
+          <Button value="Nike" title="In stock" />
         </div>
       </div>
   )
