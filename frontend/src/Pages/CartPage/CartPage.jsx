@@ -4,7 +4,10 @@ import CartItem from '../../components/CartItem/CartItem';
 import { PaystackButton } from 'react-paystack'
 import CartContext from '../../context/CartContext'
 
+const PAYSTACK_PUBLIC_KEY = "pk_test_1fbe76ff3255801ca1260d059ac6256fc365a711"
+
 const CartPage = () => {
+
   const { cartItems } = useContext(CartContext);
   const { addToCart } = useContext(CartContext);
 
@@ -19,7 +22,7 @@ const CartPage = () => {
     email: "test@test.com",
     currency: "GHS",
     amount: total * 100,
-    publicKey: "pk_test_1fbe76ff3255801ca1260d059ac6256fc365a711",
+    publicKey: PAYSTACK_PUBLIC_KEY,
     text: "Checkout",
     onSuccess: () => addToCart([]),
     onClose: () => console.log('closed'),

@@ -30,7 +30,7 @@ beforeAll(() => {
   fetch.mockClear();
 });
 
-test('renders Counter if sizes are available', async () => {
+test('test logic in detail page', async () => {
 
   render(<DetailPage/>)
 
