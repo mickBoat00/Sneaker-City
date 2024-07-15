@@ -1,0 +1,43 @@
+.btns {
+  padding: 10px 20px;
+  margin-right: 6px;
+  background: transparent;
+  border: none;
+  border: 0.6px solid #ccc;
+  border-radius: 5px;
+  color: #323232;
+  cursor: pointer;
+}
+
+.btns:hover {
+  background-color: #f4f4f4;
+}
+.btns.selected{
+  border: 1px solid black;
+}
+
+
+.sizes-btn{
+  flex: 1 1 33%;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+.sizes-btn:hover {
+  background-color: #f4f4f4;
+}
+
+
+.btns.addToCart {
+  background-color: black;
+  color: #ffffff;
+}
+.addToCart:hover {
+  background-color: black;
+  color: #ffffff;
+}
+
+.btns.checkout {
+  background-color: #333;
+  color: white;
+}

@@ -1,0 +1,25 @@
+.qty-counter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+    margin-bottom: 0.5rem;
+}
+
+button:disabled{
+    background: #f7f6f6;
+    border: none;
+    border: 0.6px solid #ccc;
+    border-radius: 5px;
+    color: #000000;
+}
+
+.count {
+    padding: 12px 20px;
+    border: none;
+    background: #f7f6f6;
+    outline: none;
+    margin-right: 20px;
+    border-radius: 5px;
+    position: relative;
+    width: 20rem;
+  }
