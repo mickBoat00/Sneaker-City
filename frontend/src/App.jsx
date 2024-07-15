@@ -7,29 +7,21 @@ import DetailPage from './Pages/DetailPage/DetailPage'
 import HomePage from './Pages/HomePage/HomePage'
 
 import {Routes, Route} from 'react-router-dom'
+import CartProvider from './context/CartProvider'
 
 function App() {
 
-  const [selectedProduct, setSelectedProduct] = useState([]);
-
-  function updateCart(item){
-    setSelectedProduct(item);
-  }
-
-  useEffect(() => {
-  }, [selectedProduct]);
-
   return (
-    <>
-      <Nav cartItems={selectedProduct}/>
+    <CartProvider>
+      <Nav />
 
       <Routes>
         <Route path='/' element={ <HomePage/>}></Route>
-        <Route path='/:id' element={<DetailPage cart={selectedProduct} updateCart={updateCart} />}></Route>
-        <Route path='/cart' element={<CartPage initialCartItems={selectedProduct} updateCart={updateCart}/>}></Route>
+        <Route path='/:id' element={<DetailPage />}></Route>
+        <Route path='/cart' element={<CartPage />}></Route>
       </Routes>
 
-    </>
+    </CartProvider>
   )
 }
 

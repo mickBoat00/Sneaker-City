@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './DetailPage.css'
 import Button from '../../components/Button/Button'
 import { useParams } from 'react-router-dom'
 import Counter from '../../components/Counter/Counter'
+import CartContext from '../../context/CartContext'
 
-const DetailPage = ({cart, updateCart}) => {
+const DetailPage = () => {
 
   const { id } = useParams()
+
+  const { cartItems } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const [sneaker, setSneaker] = useState({});
   const [quantity, setQuantity] = useState(0)
@@ -35,7 +39,7 @@ const DetailPage = ({cart, updateCart}) => {
     setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1));
   };
 
-  const addToCart = () => {
+  const updateCart = () => {
 
     if (selectedSize == null) {
       setDisplayError(true)
@@ -47,7 +51,7 @@ const DetailPage = ({cart, updateCart}) => {
       "quantity": quantity,
     }
 
-    const existingProduct = cart.find(
+    const existingProduct = cartItems.find(
       (item) => item.sneaker.id === product.sneaker.id && item.selectedSize.id === product.selectedSize.id
     );
 
@@ -63,22 +67,19 @@ const DetailPage = ({cart, updateCart}) => {
         newQuantity = selectedSizeQuantityLeft
       } 
 
-      const cartUpdated = cart.map((item) =>
+      const cartUpdated = cartItems.map((item) =>
         item.sneaker.id === product.sneaker.id && item.selectedSize.id === product.selectedSize.id
           ? { ...item, quantity: newQuantity }
           : item
       );
 
 
-      updateCart(cartUpdated);
+      addToCart(cartUpdated);
 
       
     } else {
-      updateCart([...cart, product]);
+      addToCart([...cartItems, product]);
     }
-
-
-    // updateCart(product)
 
     setSelectedSize(null)
     setQuantity(0)
@@ -118,7 +119,7 @@ const DetailPage = ({cart, updateCart}) => {
               <>
                 <Counter selectedSize={selectedSize} quantity={quantity} handleDecrement={decrementQuantity} handleIncrease={incrementQuantity} />
                 {displayError && <p style={{color: "red"}}>Please select a size.</p>}
-                <Button className={'addToCart'} onClickHandler={addToCart} value="" title="Add to cart" />
+                <Button className={'addToCart'} onClickHandler={updateCart} value="" title="Add to Cart" />
               </>
             }
         </div>

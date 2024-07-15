@@ -1,14 +1,14 @@
 import "./Nav.css";
-import React, { useContext, useEffect } from 'react'
-import { AiOutlineShoppingCart, AiOutlineUserAdd } from "react-icons/ai";
+import React, { useEffect, useContext } from 'react'
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from 'react-router-dom'
+import CartContext from '../../context/CartContext'
 
-const Nav = ({cartItems}) => {
+const Nav = () => {
 
-  console.log('Nav component received updated cartItems:', cartItems);
+  const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
-    console.log('Nav component received updated cartItems:', cartItems);
   }, [cartItems]);
 
   return (
@@ -24,15 +24,10 @@ const Nav = ({cartItems}) => {
         <input
           className="search-input"
           type="text"
-        //   onChange={handleInputChange}
-        //   value={query}
           placeholder="Enter your search shoes."
         />
       </div>
       <div className="profile-container">
-        {/* <a href="#">
-          <FiHeart className="nav-icons" />
-        </a> */}
 
         <Link to="/cart">
           <div className="cart">

@@ -1,51 +1,52 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './CartPage.css'
 import CartItem from '../../components/CartItem/CartItem';
-import Button from '../../components/Button/Button';
 import { PaystackButton } from 'react-paystack'
+import CartContext from '../../context/CartContext'
 
-const CartPage = ({initialCartItems, updateCart}) => {
-    // const [cartItems, setCartItems] = useState(initialCartItems);
-    const [subtotal, setSubtotal] = useState(0);
-    const [total, setTotal] = useState(0);
+const CartPage = () => {
+  const { cartItems } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
-    const shipping = 8.00;
-    const tax = 0; 
+  const [subtotal, setSubtotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
-    const payStackProps = {
-      className: "checkout",
-      email: "test@test.com",
-      currency: "GHS",
-      amount: total * 100,
-      publicKey: "pk_test_1fbe76ff3255801ca1260d059ac6256fc365a711",
-      text: "Checkout",
-      onSuccess: () => updateCart([]),
-      onClose: () => console.log('closed'),
-    }
+  const shipping = 8.00;
+  const tax = 0; 
 
-    useEffect (() => {
-      const newSubtotal = initialCartItems.reduce((acc, item) => acc + item.sneaker.price * item.quantity, 0);
-      setSubtotal(newSubtotal);
+  const payStackProps = {
+    className: "checkout",
+    email: "test@test.com",
+    currency: "GHS",
+    amount: total * 100,
+    publicKey: "pk_test_1fbe76ff3255801ca1260d059ac6256fc365a711",
+    text: "Checkout",
+    onSuccess: () => addToCart([]),
+    onClose: () => console.log('closed'),
+  }
 
-      const newTotal = newSubtotal + shipping + tax;
-      setTotal(newTotal);
-    }, [initialCartItems]);
+  useEffect (() => {
+    const newSubtotal = cartItems.reduce((acc, item) => acc + item.sneaker.price * item.quantity, 0);
+    setSubtotal(newSubtotal);
+
+    const newTotal = newSubtotal + shipping + tax;
+    setTotal(newTotal);
+  }, [cartItems]);
 
 
-    const handleDeleteItem = (sneakerId, selectedSizeId) => {
-      console.log('was clicked', sneakerId, selectedSizeId)
-      const updatedCartItems = initialCartItems.filter(
-        item => !(item.sneaker.id === sneakerId && item.selectedSize.id === selectedSizeId)
-      );
-      updateCart(updatedCartItems);
-    }
+  const handleDeleteItem = (sneakerId, selectedSizeId) => {
+    const updatedCartItems = cartItems.filter(
+      item => !(item.sneaker.id === sneakerId && item.selectedSize.id === selectedSizeId)
+    );
+    addToCart(updatedCartItems);
+  }
 
 
   return (
     <div className="container">
       <div className="left-side">
         <h1>Cart</h1>
-        {initialCartItems.length !== 0 ? (initialCartItems.map(cartItem => (
+        {cartItems.length !== 0 ? (cartItems.map(cartItem => (
           <CartItem
             key={cartItem.id}
             cartItem={cartItem}
