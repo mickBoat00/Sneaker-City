@@ -1,15 +1,9 @@
 import "./Nav.css";
-import React, { useEffect, useContext } from 'react'
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import React from 'react'
 import { Link } from 'react-router-dom'
-import CartContext from '../../context/CartContext'
+import Cart from "../Cart/Cart";
 
 const Nav = () => {
-
-  const { cartItems } = useContext(CartContext);
-
-  useEffect(() => {
-  }, [cartItems]);
 
   return (
     <nav>
@@ -30,10 +24,7 @@ const Nav = () => {
       <div className="profile-container">
 
         <Link to="/cart">
-          <div className="cart">
-            <AiOutlineShoppingCart className="nav-icons" />
-            <span className="cart-count">{cartItems.length}</span>
-          </div>
+          <Cart/>
         </Link>
       </div>
     </nav>

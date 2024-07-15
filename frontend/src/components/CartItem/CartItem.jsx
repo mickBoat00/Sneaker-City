@@ -3,7 +3,6 @@ import { FaTrashAlt } from "react-icons/fa";
 import './CartItem.css'
 
 const CartItem = ({cartItem, onDelete}) => {
-    console.log('sss', cartItem)
   return (
     <div className="item">
         <img src={cartItem.sneaker.img}  alt={cartItem.sneaker.model}/>

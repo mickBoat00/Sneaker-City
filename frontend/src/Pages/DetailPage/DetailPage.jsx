@@ -58,7 +58,6 @@ const DetailPage = () => {
     if (existingProduct) {
 
       const oldQuanity = existingProduct.quantity
-      console.log(typeof(oldQuanity))
       const selectedSizeQuantityLeft = existingProduct.selectedSize.quantityLeft
 
       let newQuantity = product.quantity + oldQuanity
