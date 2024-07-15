@@ -4,8 +4,8 @@ import CartItem from '../../components/CartItem/CartItem';
 import Button from '../../components/Button/Button';
 import { PaystackButton } from 'react-paystack'
 
-const CartPage = ({initialCartItems}) => {
-    const [cartItems, setCartItems] = useState(initialCartItems);
+const CartPage = ({initialCartItems, updateCart}) => {
+    // const [cartItems, setCartItems] = useState(initialCartItems);
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
 
@@ -19,25 +19,25 @@ const CartPage = ({initialCartItems}) => {
       amount: total * 100,
       publicKey: "pk_test_1fbe76ff3255801ca1260d059ac6256fc365a711",
       text: "Checkout",
-      onSuccess: () => setCartItems([]),
+      onSuccess: () => updateCart([]),
       onClose: () => console.log('closed'),
     }
 
     useEffect (() => {
-      const newSubtotal = cartItems.reduce((acc, item) => acc + item.sneaker.price * item.quantity, 0);
+      const newSubtotal = initialCartItems.reduce((acc, item) => acc + item.sneaker.price * item.quantity, 0);
       setSubtotal(newSubtotal);
 
       const newTotal = newSubtotal + shipping + tax;
       setTotal(newTotal);
-    }, [cartItems]);
+    }, [initialCartItems]);
 
 
     const handleDeleteItem = (sneakerId, selectedSizeId) => {
       console.log('was clicked', sneakerId, selectedSizeId)
-      const updatedCartItems = cartItems.filter(
+      const updatedCartItems = initialCartItems.filter(
         item => !(item.sneaker.id === sneakerId && item.selectedSize.id === selectedSizeId)
       );
-      setCartItems(updatedCartItems);
+      updateCart(updatedCartItems);
     }
 
 
@@ -45,7 +45,7 @@ const CartPage = ({initialCartItems}) => {
     <div className="container">
       <div className="left-side">
         <h1>Cart</h1>
-        {cartItems.length !== 0 ? (cartItems.map(cartItem => (
+        {initialCartItems.length !== 0 ? (initialCartItems.map(cartItem => (
           <CartItem
             key={cartItem.id}
             cartItem={cartItem}
