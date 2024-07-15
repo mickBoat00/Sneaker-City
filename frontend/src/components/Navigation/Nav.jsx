@@ -1,9 +1,16 @@
 import "./Nav.css";
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from "react-icons/ai";
 import { Link } from 'react-router-dom'
 
-const Nav = () => {
+const Nav = ({cartItems}) => {
+
+  console.log('Nav component received updated cartItems:', cartItems);
+
+  useEffect(() => {
+    console.log('Nav component received updated cartItems:', cartItems);
+  }, [cartItems]);
+
   return (
     <nav>
       <Link className="logo" to="/">
@@ -28,7 +35,10 @@ const Nav = () => {
         </a> */}
 
         <Link to="/cart">
-          <AiOutlineShoppingCart className="nav-icons" />
+          <div className="cart">
+            <AiOutlineShoppingCart className="nav-icons" />
+            <span className="cart-count">{cartItems.length}</span>
+          </div>
         </Link>
       </div>
     </nav>

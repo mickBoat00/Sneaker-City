@@ -4,7 +4,7 @@ import Button from '../../components/Button/Button'
 import { useParams } from 'react-router-dom'
 import Counter from '../../components/Counter/Counter'
 
-const DetailPage = ({updateCart}) => {
+const DetailPage = ({cart, updateCart}) => {
 
   const { id } = useParams()
 
@@ -36,20 +36,49 @@ const DetailPage = ({updateCart}) => {
   };
 
   const addToCart = () => {
-    // updating the cart
 
     if (selectedSize == null) {
       setDisplayError(true)
       return
     } 
     const product = {
-      "sneaker": sneaker.id,
+      "sneaker": sneaker,
       "selectedSize": selectedSize,
       "quantity": quantity,
     }
 
+    const existingProduct = cart.find(
+      (item) => item.sneaker.id === product.sneaker.id && item.selectedSize.id === product.selectedSize.id
+    );
 
-    updateCart(product)
+    if (existingProduct) {
+
+      const oldQuanity = existingProduct.quantity
+      console.log(typeof(oldQuanity))
+      const selectedSizeQuantityLeft = existingProduct.selectedSize.quantityLeft
+
+      let newQuantity = product.quantity + oldQuanity
+
+      if (newQuantity > selectedSizeQuantityLeft) {
+        newQuantity = selectedSizeQuantityLeft
+      } 
+
+      const cartUpdated = cart.map((item) =>
+        item.sneaker.id === product.sneaker.id && item.selectedSize.id === product.selectedSize.id
+          ? { ...item, quantity: newQuantity }
+          : item
+      );
+
+
+      updateCart(cartUpdated);
+
+      
+    } else {
+      updateCart([...cart, product]);
+    }
+
+
+    // updateCart(product)
 
     setSelectedSize(null)
     setQuantity(0)

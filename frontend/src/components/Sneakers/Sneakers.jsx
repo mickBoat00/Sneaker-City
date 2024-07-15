@@ -1,23 +1,28 @@
-import React from 'react'
-import Products from "../../data/data";
+import React, { useEffect, useState } from 'react'
 import Card from '../Card/Card';
 
 import "./Sneakers.css";
 
 const Sneakers = () => {
-  const brand = "Nike"
-  const releaseDate = "01/05/2024"
+  const [data, setData] = useState([]);
 
-  const result = Products.map(
-    ({ img, title, star, reviews, prevPrice, newPrice }) => (
+  useEffect(() => {
+    fetch('/api/sneakers/')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+
+  const result = data.map(
+    ({ id, img,brand, model, price, releaseDate }) => (
       <Card
-        key={Math.random()}
+        key={id}
+        id={id}
         img={img}
         brand={brand}
-        model={title}
-        star={star}
-        reviews={reviews}
-        price={newPrice}
+        model={model}
+        price={price}
         releaseDate={releaseDate}
       />
     )
